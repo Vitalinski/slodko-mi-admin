@@ -30,7 +30,8 @@
 
   input[type="text"],
   input[type="tel"],
-  input[type="email"] {
+  input[type="email"],
+  .select {
     @apply text-text text-[16px] sm:text-xl focus:border-accent-dark h-12 w-full rounded-full border border-black/10 bg-[#ffff] px-4 transition outline-none focus:border-2;
   }
   input[type="radio"] {
