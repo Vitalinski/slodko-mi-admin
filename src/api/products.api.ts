@@ -1,3 +1,4 @@
+import type { GenericFormData } from "axios";
 import { api } from "./client";
 import {
   type LoadProductsParams,
@@ -15,18 +16,18 @@ export function fetchProducts(
   return api.get("/products", { params });
 }
 
-export function createProduct(product: ProductFormData) {
+export function createProduct(formData: GenericFormData) {
   try {
-    return api.post("/products/create", product);
+    return api.post("/products/create", formData);
   } catch (error) {
     console.error("Error creating product:", error);
     throw error;
   }
 }
 
-export function updateProduct(product: Product) {
+export function updateProduct(formData: GenericFormData) {
   try {
-    return api.put("/products/update", product);
+    return api.put("/products/update", formData);
   } catch (error) {
     console.error("Error updating product:", error);
     throw error;
