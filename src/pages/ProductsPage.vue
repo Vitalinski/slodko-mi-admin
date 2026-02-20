@@ -130,7 +130,7 @@ onMounted(async () => {
             >
               <td class="px-4 py-3 flex items-center gap-3">
                 <img
-                  :src="`/images/${product.image}`"
+                  :src="`${product.image}`"
                   class="w-10 h-10 rounded object-cover"
                 />
                 <span class="font-medium text-gray-900">{{
