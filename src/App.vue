@@ -4,7 +4,7 @@ import BaseModal from "./components/ui/BaseModal.vue";
 </script>
 <template>
   <default-layout />
-  <base-modal/>
+  <base-modal />
 </template>
 
 <style></style>
