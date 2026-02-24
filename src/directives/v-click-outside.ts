@@ -21,5 +21,5 @@ export const vClickOutside = {
   unmounted(el: ClickOutsideHTMLElement) {
     document.removeEventListener("click", el.__clickOutsideHandler__!);
     delete el.__clickOutsideHandler__;
-  },
+  }
 };
