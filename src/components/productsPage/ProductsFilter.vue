@@ -88,7 +88,7 @@ function clearCategories() {
 </script>
 
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-2 flex-wrap sm:flex-nowrap">
     <input
       v-model="currentFilter.searchValue"
       type="text"
@@ -165,6 +165,7 @@ function clearCategories() {
     </div>
 
     <BaseButton
+      class="w-full sm:w-auto"
       appearance="primary"
       text="Search"
       :disabled="!isFilterChanged"
