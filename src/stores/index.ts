@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import type {
   LoadProductsParams,
   Product,
-  ProductFormData,
+  ProductBaseData,
   ProductMap,
 } from "@/types";
 import {
@@ -11,7 +11,7 @@ import {
   fetchProducts,
   updateProduct,
 } from "@/api/products.api";
-import { toFormData } from "axios";
+import { toFormData } from "@/utils/formData";
 
 export const useStore = defineStore("main", {
   state: (): {
@@ -28,7 +28,7 @@ export const useStore = defineStore("main", {
   actions: {
     setProducts(products: Product[], totalCount: number) {
       const formattedProducts: ProductMap = {};
-      for (let product of products) {
+      for (const product of products) {
         formattedProducts[product.id] = product;
       }
 
@@ -66,21 +66,14 @@ export const useStore = defineStore("main", {
       await deleteProduct(productId);
       delete this.products[productId];
     },
-    async updateProduct(product: Omit<Product, "category">, file?: File) {
-      const formData = toFormData(product) as FormData;
+    async updateProduct(product: Omit<Product, "category">) {
+      const formData = toFormData (product) as FormData;
 
-      if (file) {
-        formData.set("image", file);
-      }
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
       const resp = await updateProduct(formData);
       this.products[product.id] = resp.data;
     },
-    async createProduct(product: ProductFormData, file: File) {
+    async createProduct(product: ProductBaseData) {
       const formData = toFormData(product) as FormData;
-      formData.set("image", file);
       await createProduct(formData);
     },
   },

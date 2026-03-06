@@ -1,10 +1,6 @@
 import type { GenericFormData } from "axios";
 import { api } from "./client";
-import {
-  type LoadProductsParams,
-  type Product,
-  type ProductFormData,
-} from "@/types";
+import { type LoadProductsParams } from "@/types";
 
 export function fetchProducts(
   params: LoadProductsParams = {
