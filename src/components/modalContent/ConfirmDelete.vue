@@ -1,32 +1,29 @@
 <script setup lang="ts">
-import type { Product } from "@/types";
-import { useStore } from "@/stores";
 import BaseButton from "../ui/BaseButton.vue";
 import { ref } from "vue";
 import BaseLoader from "../ui/BaseLoader.vue";
+import type { deletePayload } from "@/types/modals.types";
 
 const props = defineProps<{
-  payload: Product;
+  payload: deletePayload;
 }>();
 
 const emit = defineEmits(["close"]);
-const store = useStore();
-const deleteProduct = store.deleteProduct;
 
 const isLoading = ref(false);
 
 async function deleteItem() {
   isLoading.value = true;
-  await deleteProduct(props.payload.id);
-  emit("close");
+  await props.payload.onConfirm();
   isLoading.value = false;
+  emit("close");
 }
 </script>
 
 <template>
   <div>
-    Please confirm you want to delete a
-    <span class="text-accent-dark font-bold">{{ payload.title }}</span>
+    {{ props.payload.title }}
+    <p class="italic">{{ props.payload.message }}</p>
   </div>
   <div class="flex gap-4 pt-4">
     <base-button

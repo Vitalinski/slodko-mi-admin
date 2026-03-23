@@ -38,5 +38,4 @@ export type Category = {
   title: string;
   showInHeader: boolean;
   order: number;
-  products: Product[];
 };

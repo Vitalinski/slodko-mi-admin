@@ -93,7 +93,6 @@ onBeforeMount(() => {
   if (!props.payload) {
     return;
   }
-  console.log("Editing product:", props.payload);
   const product = props.payload;
   form.title = product.title;
   form.description = product.description;
@@ -107,7 +106,6 @@ onBeforeMount(() => {
     url: img.url,
   }));
   form.images.push(...arr);
-  console.log("Initial form images:", form.images);
 });
 </script>
 
