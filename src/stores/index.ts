@@ -67,14 +67,16 @@ export const useStore = defineStore("main", {
       delete this.products[productId];
     },
     async updateProduct(product: Omit<Product, "category">) {
-      const formData = toFormData (product) as FormData;
+      const formData = toFormData(product) as FormData;
 
       const resp = await updateProduct(formData);
       this.products[product.id] = resp.data;
     },
     async createProduct(product: ProductBaseData) {
       const formData = toFormData(product) as FormData;
-      await createProduct(formData);
+      const res = await createProduct(formData);
+      const newProduct = res.data.product;
+      this.products[newProduct.id] = newProduct;
     },
   },
 });

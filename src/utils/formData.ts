@@ -26,8 +26,6 @@ export function toFormData(productData: ProductBaseData | Product): FormData {
       }
     });
   }
-  for (const [key, value] of formData.entries()) {
-    console.log(`FormData entry - ${key}:`, value);
-  }
+
   return formData;
 }
