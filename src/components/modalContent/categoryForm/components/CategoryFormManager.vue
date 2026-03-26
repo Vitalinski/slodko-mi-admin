@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Category } from "@/types";
+import { handleNumberInput } from "@/utils/inputNumberValidator";
 
 const form = defineModel<Omit<Category, "id">>("form", {
   default: () => ({
@@ -9,6 +10,14 @@ const form = defineModel<Omit<Category, "id">>("form", {
     showInHeader: false,
   }),
 });
+
+function validateOrder(event: Event) {
+  handleNumberInput(
+    event,
+    (num) => (form.value.order = num),
+    (num) => Math.floor(num),
+  );
+}
 </script>
 
 <template>
@@ -35,10 +44,9 @@ const form = defineModel<Omit<Category, "id">>("form", {
       <div>
         <label class="block text-sm font-medium mb-1">Order</label>
         <input
-          v-model.number="form.order"
-          type="number"
-          min="0"
+          :value="form.order"
           class="w-full rounded-lg border px-4 py-2"
+          @input="validateOrder"
         />
       </div>
     </div>
