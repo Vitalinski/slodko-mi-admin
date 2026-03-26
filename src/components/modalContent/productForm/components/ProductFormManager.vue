@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCategoriesStore } from "@/stores/categories";
 import type { ProductBaseData } from "@/types";
+import { handleNumberInput } from "@/utils/inputNumberValidator";
 import { computed } from "vue";
 
 const form = defineModel<ProductBaseData>("form", {
@@ -20,14 +21,18 @@ const categoriesStore = useCategoriesStore();
 const categories = categoriesStore.categories;
 
 const categoriesList = computed(() => Object.values(categories));
-const priceDisplay = computed({
-  get() {
-    return form.value.price / 100;
-  },
-  set(value: number) {
-    form.value.price = Math.round(value * 100);
-  },
-});
+
+function validatePrice(event: Event) {
+  handleNumberInput(
+    event,
+    (num) => (form.value.price = num),
+    (num) => Math.round(num * 100),
+  );
+}
+
+function validateMinQuantity(event: Event) {
+  handleNumberInput(event, (num) => (form.value.minQuantity = num));
+}
 </script>
 
 <template>
@@ -54,21 +59,18 @@ const priceDisplay = computed({
       <div>
         <label class="block text-sm font-medium mb-1">Price</label>
         <input
-          v-model.number="priceDisplay"
-          type="number"
-          step="0.01"
-          min="0"
+          :value="form.price / 100"
           class="w-full rounded-lg border px-4 py-2"
+          @input="validatePrice"
         />
       </div>
 
       <div>
         <label class="block text-sm font-medium mb-1">Min quantity</label>
         <input
-          v-model.number="form.minQuantity"
-          type="number"
-          min="0"
+          :value="form.minQuantity"
           class="w-full rounded-lg border px-4 py-2"
+          @input="validateMinQuantity"
         />
       </div>
     </div>
