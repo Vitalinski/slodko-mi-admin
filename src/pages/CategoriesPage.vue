@@ -84,8 +84,7 @@ onMounted(async () => {
                 <span
                   v-if="category.showInHeader"
                   class="inline-flex items-center justify-center text-green-600"
-                  >★</span
-                >
+                >★</span>
                 <span v-else class="text-gray-800">—</span>
               </td>
 
