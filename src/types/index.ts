@@ -17,15 +17,16 @@ export type Product = ProductBaseData & {
 export type ProductImage = {
   id: string;
   url: string;
+  order: number;
   file?: File;
 };
 
 export type ProductMap = Record<string, Product>;
 
 export type LoadProductsParams = {
-  categories: string[];
-  onlyPopular: boolean;
-  searchValue: string;
+  categories?: string[];
+  onlyPopular?: boolean;
+  searchValue?: string;
   page?: number;
   limit?: number;
 };

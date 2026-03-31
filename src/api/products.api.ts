@@ -9,7 +9,12 @@ export function fetchProducts(
     searchValue: "",
   },
 ) {
-  return api.get("/products", { params });
+  try {
+    return api.get("/products", { params });
+  } catch (error) {
+    console.error("Error getting product:", error);
+    throw error;
+  }
 }
 
 export function createProduct(formData: GenericFormData) {

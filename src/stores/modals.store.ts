@@ -1,19 +1,22 @@
-import type { Product } from "@/types";
-import type { ModalType } from "@/types/modals.types";
+import type { Category, Product } from "@/types";
+import type { deletePayload, ModalType } from "@/types/modals.types";
 import { defineStore } from "pinia";
 
 export const useModalStore = defineStore("modal", {
   state: (): {
     isModalOpen: boolean;
     type?: ModalType;
-    payload?: Product | undefined;
+    payload?: Product | undefined | deletePayload | Category;
   } => ({
     isModalOpen: false,
     type: undefined,
     payload: undefined,
   }),
   actions: {
-    openModal(type: ModalType, payload?: Product | undefined) {
+    openModal(
+      type: ModalType,
+      payload?: Product | undefined | deletePayload | Category,
+    ) {
       this.isModalOpen = true;
       this.type = type;
       this.payload = payload;

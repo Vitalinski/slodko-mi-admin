@@ -2,7 +2,12 @@ import type { Category } from "@/types";
 import { api } from "./client";
 
 export function fetchCategories() {
-  return api.get("/categories");
+  try {
+    return api.get("/categories");
+  } catch (error) {
+    console.error("Error getting categories:", error);
+    throw error;
+  }
 }
 
 export function createCategory(category: Omit<Category, "id">) {

@@ -21,7 +21,7 @@ const headers = [
   "Min Qty",
   "Popular",
   "Description",
-  "Actions"
+  "Actions",
 ];
 
 const store = useStore();
@@ -32,7 +32,7 @@ const el = useTemplateRef("el");
 const filter = reactive<LoadProductsParams>({
   searchValue: "",
   onlyPopular: false,
-  categories: []
+  categories: [],
 });
 
 const isLoading = ref(false);
@@ -49,21 +49,24 @@ async function loadNextPage() {
     categories: filter.categories,
     onlyPopular: filter.onlyPopular,
     searchValue: filter.searchValue,
-    page: products.value.length / PRODUCTS_PER_PAGE + FIRST_PAGE_INDEX
+    page: products.value.length / PRODUCTS_PER_PAGE + FIRST_PAGE_INDEX,
   });
 
   isLoading.value = false;
 }
 
 function deleteProduct(product: Product) {
-  modalStore.openModal("delete", product);
+  modalStore.openModal("delete", {
+    title: `Delete product ${product.title}?`,
+    onConfirm: () => store.deleteProduct(product.id),
+  });
 }
 
 function openProductForm(product?: Product) {
   if (product) {
-    modalStore.openModal("edit", product);
+    modalStore.openModal("productForm", product);
   } else {
-    modalStore.openModal("create");
+    modalStore.openModal("productForm");
   }
 }
 async function onUpdateFilter(filterSettings: LoadProductsParams) {
@@ -73,7 +76,7 @@ async function onUpdateFilter(filterSettings: LoadProductsParams) {
   await store.loadProducts({
     categories: filter.categories,
     searchValue: filter.searchValue,
-    onlyPopular: filter.onlyPopular
+    onlyPopular: filter.onlyPopular,
   });
   isLoading.value = false;
 }
@@ -85,8 +88,8 @@ useInfiniteScroll(
   },
   {
     distance: 120,
-    canLoadMore: () => store.totalCount > products.value.length
-  }
+    canLoadMore: () => store.totalCount > products.value.length,
+  },
 );
 
 onMounted(async () => {
@@ -98,17 +101,11 @@ onMounted(async () => {
 
 <template>
   <div class="p-8 space-y-12">
-    <h3 class="text-center">
-      Products Administration
-    </h3>
+    <h3 class="text-center">Products Administration</h3>
 
     <section class="space-y-4 flex flex-col">
-      <ProductsFilter
-        :is-loading
-        :filter
-        @update-filter="onUpdateFilter"
-      />
-      <BaseTable>
+      <ProductsFilter :is-loading :filter @update-filter="onUpdateFilter" />
+      <BaseTable grid-template="232px 100px 100px 100px 100px auto 100px">
         <template #head>
           <th
             v-for="header in headers"
@@ -127,18 +124,14 @@ onMounted(async () => {
             <tr
               v-for="product in products"
               :key="product.id"
-              class="hover:bg-gray-50 hover:cursor-pointer items-center"
-              style="
-                display: grid;
-                grid-template-columns: 232px 100px 100px 100px 100px auto 100px;
-              "
+              class="hover:bg-gray-50 hover:cursor-pointer items-center grid grid-cols-[232px_100px_100px_100px_100px_auto_100px]"
               @click="openProductForm(product)"
             >
               <td class="px-4 py-3 flex items-center gap-3">
                 <img
                   :src="`${product.images[0]?.url}`"
                   class="w-10 h-10 rounded object-cover"
-                >
+                />
                 <span class="font-medium text-gray-900">{{
                   product.title
                 }}</span>
@@ -161,10 +154,7 @@ onMounted(async () => {
                   v-if="product.isPopular"
                   class="inline-flex items-center justify-center text-green-600"
                 >★</span>
-                <span
-                  v-else
-                  class="text-gray-800"
-                >—</span>
+                <span v-else class="text-gray-800">—</span>
               </td>
 
               <td class="px-4 py-3">
@@ -188,17 +178,9 @@ onMounted(async () => {
                 </button>
               </td>
             </tr>
-            <BaseLoader
-              v-if="isLoading"
-              :class="{ 'h-8': products.length }"
-            />
-            <div
-              v-else-if="!products.length"
-              class="m-auto"
-            >
-              <h3 class="text-center">
-                No products
-              </h3>
+            <BaseLoader v-if="isLoading" :class="{ 'h-8': products.length }" />
+            <div v-else-if="!products.length" class="m-auto">
+              <h3 class="text-center">No products</h3>
               <p class="text-xl">
                 Try to change filter settings or reload the page
               </p>
