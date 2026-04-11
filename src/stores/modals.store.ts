@@ -1,5 +1,5 @@
 import type { Category, Product } from "@/types";
-import type { deletePayload, ModalType } from "@/types/modals.types";
+import type { deletePayload, ModalType } from "@/types/modals";
 import { defineStore } from "pinia";
 
 export const useModalStore = defineStore("modal", {
