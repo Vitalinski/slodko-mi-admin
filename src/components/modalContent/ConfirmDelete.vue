@@ -2,7 +2,7 @@
 import BaseButton from "../ui/BaseButton.vue";
 import { ref } from "vue";
 import BaseLoader from "../ui/BaseLoader.vue";
-import type { deletePayload } from "@/types/modals.types";
+import type { deletePayload } from "@/types/modals";
 
 const props = defineProps<{
   payload: deletePayload;

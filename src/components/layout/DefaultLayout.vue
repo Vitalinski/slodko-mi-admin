@@ -1,6 +1,11 @@
 <script setup>
+import { onMounted } from "vue";
 import TheHeader from "./TheHeader.vue";
+import { useOrdersStore } from "@/stores/orders";
 
+const ordersStore = useOrdersStore();
+
+onMounted(() => ordersStore.loadNewOrdersCount());
 </script>
 <template>
   <div class="relative flex min-h-screen flex-col">
