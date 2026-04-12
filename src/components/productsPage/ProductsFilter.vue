@@ -2,7 +2,7 @@
 import { reactive, computed, ref } from "vue";
 import { useCategoriesStore } from "@/stores/categories";
 import BaseButton from "../ui/BaseButton.vue";
-import type { Filter } from "@/types";
+import type { ProductFilter } from "@/types";
 
 const emit = defineEmits<{
   (
@@ -15,7 +15,7 @@ const emit = defineEmits<{
   ): void;
 }>();
 
-const props = defineProps<{ filter: Filter }>();
+const props = defineProps<{ filter: ProductFilter }>();
 
 const categoriesStore = useCategoriesStore();
 const currentFilter = reactive({
@@ -56,9 +56,9 @@ const isFilterChanged = computed(
     !isEqual(currentFilter.categories, props.filter.categories),
 );
 
-function isEqual(arr1: string[], arr2: string[]) {
+function isEqual(arr1: string[], arr2: string[] | undefined) {
   return (
-    arr1.length === arr2.length &&
+    arr1.length === arr2?.length &&
     [...arr1].sort().every((v, i) => v === [...arr2].sort()[i])
   );
 }

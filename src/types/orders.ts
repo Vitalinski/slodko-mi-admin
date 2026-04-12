@@ -24,6 +24,7 @@ export type OrderStatus = "NEW" | "PENDING" | "COMPLETED" | "CANCELED";
 
 export type PaymentStatus = "PENDING" | "COMPLETED" | "CANCELED";
 
+export type OrdersFilter = Omit<LoadOrdersParams, "page" | "limit">;
 export type LoadOrdersParams = {
   orderStatuses?: OrderStatus[];
   page?: number;

@@ -31,7 +31,7 @@ export type LoadProductsParams = {
   limit?: number;
 };
 
-export type Filter = Omit<LoadProductsParams, "page" | "limit">;
+export type ProductFilter = Omit<LoadProductsParams, "page" | "limit">;
 
 export type Category = {
   id: string;

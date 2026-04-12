@@ -1,4 +1,4 @@
-export type ModalType = "productForm" | "categoryForm" | "delete";
+export type ModalType = "productForm" | "categoryForm" | "orderInfo" | "delete";
 
 export type deletePayload = {
   title: string;
