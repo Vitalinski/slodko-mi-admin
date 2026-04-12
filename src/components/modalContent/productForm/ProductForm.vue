@@ -104,6 +104,7 @@ onBeforeMount(() => {
   const arr = product.images.map((img) => ({
     id: img.id,
     url: img.url,
+    order: img.order,
   }));
   form.images.push(...arr);
 });

@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia";
 import BaseContainer from "./BaseContainer.vue";
 import BaseCloseButton from "./BaseCloseButton.vue";
 import CategoryForm from "../modalContent/categoryForm/CategoryForm.vue";
+import OrderInfo from "../modalContent/OrderInfo.vue";
 
 const modalStore = useModalStore();
 
@@ -20,6 +21,8 @@ const modalComponent = computed(() => {
       return CategoryForm;
     case "delete":
       return ConfirmDelete;
+    case "orderInfo":
+      return OrderInfo;
 
     default:
       return null;

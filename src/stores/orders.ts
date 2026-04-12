@@ -52,14 +52,13 @@ export const useOrdersStore = defineStore("orders", {
       const res = await fetchNewOrdersCount();
       this.setNewOrdersCount(res.data);
 
-      console.log("new", res.data);
     },
 
     async updateOrder(id: string, newStatus: OrderStatus) {
       const resp = await updateOrderStatus(id, newStatus);
       this.orders[id] = resp.data;
     },
-     async reset() {
+    async reset() {
       this.orders = {};
     },
   },
