@@ -6,6 +6,7 @@ import ProductsPage from "@/pages/ProductsPage.vue";
 import FAQPage from "@/pages/FAQPage.vue";
 import PagesPage from "@/pages/PagesPage.vue";
 import CategoriesPage from "@/pages/CategoriesPage.vue";
+import LoginPage from "@/pages/LoginPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,11 @@ const router = createRouter({
       path: "/",
       name: "HomePage",
       component: HomePage,
+    },
+    {
+      path: "/login",
+      name: "LoginPage",
+      component: LoginPage,
     },
     {
       path: "/orders",
